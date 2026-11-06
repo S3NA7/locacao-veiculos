@@ -1,6 +1,8 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import cors from "cors";
 import { ErroHttp } from "./lib/erro-http.js";
+import { authRoutes } from "./modules/auth/auth.routes.js";
+import { usuariosRoutes } from "./modules/usuarios/usuarios.routes.js";
 
 export function criarApp() {
   const app = express();
@@ -11,6 +13,9 @@ export function criarApp() {
   app.get("/saude", (_req, res) => {
     res.json({ ok: true });
   });
+
+  app.use("/auth", authRoutes);
+  app.use("/usuarios", usuariosRoutes);
 
   app.use(tratarErro);
 
