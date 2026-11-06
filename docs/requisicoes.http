@@ -1,0 +1,119 @@
+@base = http://localhost:3333
+@token = COLE_AQUI_O_TOKEN_DO_LOGIN
+
+### 0. Verificar se a API está no ar
+GET {{base}}/saude
+
+### 1. Login do admin criado pelo seed (copie o token da resposta para @token)
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@locadora.com",
+  "senha": "admin123"
+}
+
+### 2. Cadastrar um cliente
+POST {{base}}/auth/registrar
+Content-Type: application/json
+
+{
+  "nome": "Maria Cliente",
+  "email": "maria@exemplo.com",
+  "senha": "maria123"
+}
+
+### 3. Dados do usuário logado
+GET {{base}}/usuarios/eu
+Authorization: Bearer {{token}}
+
+### 4. Listar todos os veículos
+GET {{base}}/veiculos
+Authorization: Bearer {{token}}
+
+### 5. Listar só veículos disponíveis
+GET {{base}}/veiculos?status=DISPONIVEL
+Authorization: Bearer {{token}}
+
+### 6. Cadastrar veículo (somente admin)
+POST {{base}}/veiculos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "placa": "JKL1M23",
+  "marca": "Chevrolet",
+  "modelo": "Onix",
+  "ano": 2025,
+  "valorDiaria": 99.9
+}
+
+### 7. Consultar um veículo
+GET {{base}}/veiculos/1
+Authorization: Bearer {{token}}
+
+### 8. Atualizar veículo (somente admin)
+PUT {{base}}/veiculos/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "valorDiaria": 135
+}
+
+### 9. Registrar locação (veículo 1, devolução prevista para a data informada)
+POST {{base}}/locacoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "veiculoId": 1,
+  "dataPrevista": "2026-12-20"
+}
+
+### 10. Listar locações (cliente vê as suas, admin vê todas)
+GET {{base}}/locacoes
+Authorization: Bearer {{token}}
+
+### 11. Registrar devolução (troque 1 pelo id da locação criada acima)
+POST {{base}}/locacoes/1/devolucao
+Authorization: Bearer {{token}}
+
+### 12. Excluir veículo (somente admin; recusa se houver locação ativa)
+DELETE {{base}}/veiculos/4
+Authorization: Bearer {{token}}
+
+### 13. Exemplos de erro: alugar veículo já alugado (409)
+POST {{base}}/locacoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "veiculoId": 1,
+  "dataPrevista": "2026-12-20"
+}
+
+### 14. Exemplo de erro: sem token (401)
+GET {{base}}/veiculos
+
+###############################################################################
+# Equivalentes em curl (PowerShell: use curl.exe no lugar de curl)
+###############################################################################
+
+# Login (guarde o token)
+# curl -X POST http://localhost:3333/auth/login -H "Content-Type: application/json" -d "{\"email\":\"admin@locadora.com\",\"senha\":\"admin123\"}"
+
+# Cadastro
+# curl -X POST http://localhost:3333/auth/registrar -H "Content-Type: application/json" -d "{\"nome\":\"Maria\",\"email\":\"maria@exemplo.com\",\"senha\":\"maria123\"}"
+
+# Listar veículos
+# curl http://localhost:3333/veiculos -H "Authorization: Bearer SEU_TOKEN"
+
+# Cadastrar veículo
+# curl -X POST http://localhost:3333/veiculos -H "Content-Type: application/json" -H "Authorization: Bearer SEU_TOKEN" -d "{\"placa\":\"JKL1M23\",\"marca\":\"Chevrolet\",\"modelo\":\"Onix\",\"ano\":2025,\"valorDiaria\":99.9}"
+
+# Alugar
+# curl -X POST http://localhost:3333/locacoes -H "Content-Type: application/json" -H "Authorization: Bearer SEU_TOKEN" -d "{\"veiculoId\":1,\"dataPrevista\":\"2026-12-20\"}"
+
+# Devolver
+# curl -X POST http://localhost:3333/locacoes/1/devolucao -H "Authorization: Bearer SEU_TOKEN"
