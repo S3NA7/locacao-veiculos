@@ -6,6 +6,7 @@ import { Login } from "./paginas/Login";
 import { Cadastro } from "./paginas/Cadastro";
 import { Veiculos } from "./paginas/Veiculos";
 import { FormularioVeiculo } from "./paginas/FormularioVeiculo";
+import { Locacoes } from "./paginas/Locacoes";
 
 export function App() {
   return (
@@ -20,7 +21,7 @@ export function App() {
               <Route path="/veiculos" element={<Veiculos />} />
               <Route path="/veiculos/novo" element={<FormularioVeiculo />} />
               <Route path="/veiculos/:id/editar" element={<FormularioVeiculo />} />
-              <Route path="/locacoes" element={<p>Locações</p>} />
+              <Route path="/locacoes" element={<Locacoes />} />
             </Route>
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
