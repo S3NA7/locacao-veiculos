@@ -1,8 +1,10 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import cors from "cors";
+import { ZodError } from "zod";
 import { ErroHttp } from "./lib/erro-http.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
 import { usuariosRoutes } from "./modules/usuarios/usuarios.routes.js";
+import { veiculosRoutes } from "./modules/veiculos/veiculos.routes.js";
 
 export function criarApp() {
   const app = express();
@@ -16,6 +18,7 @@ export function criarApp() {
 
   app.use("/auth", authRoutes);
   app.use("/usuarios", usuariosRoutes);
+  app.use("/veiculos", veiculosRoutes);
 
   app.use(tratarErro);
 
@@ -25,6 +28,10 @@ export function criarApp() {
 function tratarErro(erro: unknown, _req: Request, res: Response, _next: NextFunction) {
   if (erro instanceof ErroHttp) {
     res.status(erro.status).json({ erro: erro.message });
+    return;
+  }
+  if (erro instanceof ZodError) {
+    res.status(400).json({ erro: erro.issues[0]?.message ?? "Dados inválidos" });
     return;
   }
   console.error(erro);
