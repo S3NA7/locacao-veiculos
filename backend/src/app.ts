@@ -5,6 +5,7 @@ import { ErroHttp } from "./lib/erro-http.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
 import { usuariosRoutes } from "./modules/usuarios/usuarios.routes.js";
 import { veiculosRoutes } from "./modules/veiculos/veiculos.routes.js";
+import { locacoesRoutes } from "./modules/locacoes/locacoes.routes.js";
 
 export function criarApp() {
   const app = express();
@@ -19,6 +20,7 @@ export function criarApp() {
   app.use("/auth", authRoutes);
   app.use("/usuarios", usuariosRoutes);
   app.use("/veiculos", veiculosRoutes);
+  app.use("/locacoes", locacoesRoutes);
 
   app.use(tratarErro);
 
