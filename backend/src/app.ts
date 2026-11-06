@@ -22,6 +22,10 @@ export function criarApp() {
   app.use("/veiculos", veiculosRoutes);
   app.use("/locacoes", locacoesRoutes);
 
+  app.use((_req, res) => {
+    res.status(404).json({ erro: "Rota não encontrada" });
+  });
+
   app.use(tratarErro);
 
   return app;
@@ -34,6 +38,10 @@ function tratarErro(erro: unknown, _req: Request, res: Response, _next: NextFunc
   }
   if (erro instanceof ZodError) {
     res.status(400).json({ erro: erro.issues[0]?.message ?? "Dados inválidos" });
+    return;
+  }
+  if (erro instanceof SyntaxError && "status" in erro) {
+    res.status(400).json({ erro: "JSON inválido" });
     return;
   }
   console.error(erro);

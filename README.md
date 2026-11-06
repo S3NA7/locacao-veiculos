@@ -47,7 +47,7 @@ docker-compose.yml    MySQL 8 em container
 
 ## Pré-requisitos
 
-- **Node.js 18 ou superior** (desenvolvido com Node 22)
+- **Node.js 22** (mínimo 20.19; o Vite não roda em versões anteriores)
 - **MySQL 8**, por uma das opções abaixo:
   - **Opção A:** Docker Desktop (recomendado, sobe com um comando)
   - **Opção B:** MySQL já instalado na máquina (XAMPP, WAMP, MySQL Installer etc.)

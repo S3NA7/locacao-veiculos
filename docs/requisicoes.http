@@ -68,7 +68,7 @@ Authorization: Bearer {{token}}
 
 {
   "veiculoId": 1,
-  "dataPrevista": "2026-12-20"
+  "dataPrevista": "2027-12-31"
 }
 
 ### 10. Listar locações (cliente vê as suas, admin vê todas)
@@ -90,7 +90,7 @@ Authorization: Bearer {{token}}
 
 {
   "veiculoId": 1,
-  "dataPrevista": "2026-12-20"
+  "dataPrevista": "2027-12-31"
 }
 
 ### 14. Exemplo de erro: sem token (401)
@@ -113,7 +113,7 @@ GET {{base}}/veiculos
 # curl -X POST http://localhost:3333/veiculos -H "Content-Type: application/json" -H "Authorization: Bearer SEU_TOKEN" -d "{\"placa\":\"JKL1M23\",\"marca\":\"Chevrolet\",\"modelo\":\"Onix\",\"ano\":2025,\"valorDiaria\":99.9}"
 
 # Alugar
-# curl -X POST http://localhost:3333/locacoes -H "Content-Type: application/json" -H "Authorization: Bearer SEU_TOKEN" -d "{\"veiculoId\":1,\"dataPrevista\":\"2026-12-20\"}"
+# curl -X POST http://localhost:3333/locacoes -H "Content-Type: application/json" -H "Authorization: Bearer SEU_TOKEN" -d "{\"veiculoId\":1,\"dataPrevista\":\"2027-12-31\"}"
 
 # Devolver
 # curl -X POST http://localhost:3333/locacoes/1/devolucao -H "Authorization: Bearer SEU_TOKEN"

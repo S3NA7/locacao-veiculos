@@ -4,3 +4,4 @@ dist/
 *.log
 .superpowers/
 .DS_Store
+.claude/
