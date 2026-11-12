@@ -5,7 +5,7 @@ Projeto da disciplina **Programação com Frameworks Web**. Sistema completo de 
 ## Integrantes
 
 - Arthur Sena
-- _(adicione os demais integrantes)_
+- Joalisson David da Silva Lemos
 
 ## Tecnologias
 
